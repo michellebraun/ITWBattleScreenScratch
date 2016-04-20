@@ -2,8 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,15 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.utils.MeshBuilder;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class BattleScreenScratch extends ApplicationAdapter {
 	TextureAtlas taHero;
@@ -33,7 +27,7 @@ public class BattleScreenScratch extends ApplicationAdapter {
 	Animation aniLeft, aniRight, aniUp, aniDown;
 	float fStateTime;
 	SpriteBatch spriteBatch;
-	float HeroX, HeroY, fEnemyHealth, fHeroHealth, fEnemyWidth, fEnemyHeight, HeroSpeed = 50f;
+	float HeroX, HeroY, fEnemyHealth, fHeroHealth, HeroSpeed = 50f;
 	TextButton tbAttack, tbWeapons;
 	Stage stage;
 
@@ -72,13 +66,6 @@ public class BattleScreenScratch extends ApplicationAdapter {
 		stage.addActor(tbAttack);
 		stage.addActor(tbWeapons);
 
-
-		/*MeshBuilder shapeRenderer;
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-		shapeRenderer.setColor(1, 1, 0, 1);
-		shapeRenderer.rect(200, 180, 100, 10);
-		shapeRenderer.end();*/
-
 		txHealthBorder = new Texture(Gdx.files.internal("healthborder.png"));
 		txHealth = new Texture(Gdx.files.internal("red.png"));
 		txEnemy = new Texture(Gdx.files.internal("witch.png"));
@@ -107,8 +94,6 @@ public class BattleScreenScratch extends ApplicationAdapter {
 		HeroY = 180;
 		fEnemyHealth = 200;
 		fHeroHealth = 200;
-		fEnemyHeight = 200;
-		fEnemyWidth = 200;
 
 		tbAttack.addListener(new InputListener(){
 			@Override
@@ -116,8 +101,7 @@ public class BattleScreenScratch extends ApplicationAdapter {
 				fEnemyHealth = fEnemyHealth - 10;
 				System.out.println(fEnemyHealth);
 				if (fEnemyHealth == 0){
-					fEnemyWidth = 0;
-					fEnemyHeight = 0;
+					txEnemy.dispose();
 				}
 				return true;
 			}
@@ -140,7 +124,7 @@ public class BattleScreenScratch extends ApplicationAdapter {
 		spriteBatch.draw(txHealth, 400, 390, fEnemyHealth, 15);
 		spriteBatch.draw(txHealthBorder, 0, 380, 220, 30);
 		spriteBatch.draw(txHealth, 0, 390 , fHeroHealth, 15);
-		spriteBatch.draw(txEnemy, 400, 180, fEnemyWidth, fEnemyHeight);
+		spriteBatch.draw(txEnemy, 400, 180, 200, 200);
 		spriteBatch.draw(trCurrentFrame, (int) HeroX, (int) HeroY, 200, 200);
 		spriteBatch.end();
 		stage.draw();
