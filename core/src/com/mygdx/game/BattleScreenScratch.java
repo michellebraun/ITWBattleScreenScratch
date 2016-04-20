@@ -31,6 +31,7 @@ public class BattleScreenScratch extends ApplicationAdapter {
 	TextButton tbAttack, tbWeapons;
 	Stage stage;
 
+
 	/*private static Button.ButtonStyle TbsButton(){
 		Skin skin = new Skin();
 		TextureAtlas buttonAtlas;
@@ -102,6 +103,9 @@ public class BattleScreenScratch extends ApplicationAdapter {
 				System.out.println(fEnemyHealth);
 				if (fEnemyHealth == 0){
 					txEnemy.dispose();
+					spriteBatch.dispose();
+					stage.dispose();
+
 				}
 				return true;
 			}
@@ -115,7 +119,6 @@ public class BattleScreenScratch extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		Gdx.gl.glClearColor(1,1,1,1);
-		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 		trCurrentFrame = aniDown.getKeyFrame(0);
 		fStateTime += Gdx.graphics.getDeltaTime();
 		spriteBatch.begin();
