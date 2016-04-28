@@ -49,7 +49,7 @@ public class ScrWin implements Screen{
         batch.end();
         stage.draw();
         if(tbContinue.isPressed()){
-            gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
+            gamBattleScreen.currentState = GamBattleScreen.GameState.WEAPONS;
             gamBattleScreen.updateState();
         }
     }
