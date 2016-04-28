@@ -19,16 +19,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class ScrBattle implements Screen {
 
     GamBattleScreen gamBattleScreen;
-    TextureAtlas taHero;
     Texture txEnemy, txHealth, txHealthBorder, txBackground, txMainC;
     TbsMenu tbsMenu;
     TbMenu tbAttack, tbWeapons;
     SpriteBatch spriteBatch;
-    float fEnemyHealth, fHeroHealth;
+    float fEnemyHealth, fHeroHealth, fMinus;
     Stage stage;
 
     public ScrBattle(GamBattleScreen gamBattleScreen) {
         this.gamBattleScreen = gamBattleScreen;
+    }
+
+    public ScrBattle(){
+        //fMinus = 10;
     }
 
     @Override
@@ -36,10 +39,9 @@ public class ScrBattle implements Screen {
         stage = new Stage();
         tbsMenu = new TbsMenu();
         tbAttack = new TbMenu("Attack", tbsMenu);
-        tbWeapons = new TbMenu("Weapons", tbsMenu);
-        tbWeapons.setX(300);
-        tbAttack.setSize(290, 100);
-        tbWeapons.setSize(290, 100);
+        tbWeapons = new TbMenu("Change Weapon", tbsMenu);
+        tbWeapons.setBounds(300, 0, 290, 100);
+        tbAttack.setBounds(0, 0 , 290, 100);
         stage.addActor(tbAttack);
         stage.addActor(tbWeapons);
 
@@ -54,7 +56,7 @@ public class ScrBattle implements Screen {
         tbAttack.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                fEnemyHealth = fEnemyHealth - 10;
+                fEnemyHealth = fEnemyHealth - 50;
                 System.out.println(fEnemyHealth);
                 if (fEnemyHealth == 0){
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;

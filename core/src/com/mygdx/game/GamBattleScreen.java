@@ -30,15 +30,13 @@ public class GamBattleScreen extends Game {
 		scrBattle = new ScrBattle(this);
 		scrWin = new ScrWin(this);
 		scrWeapons = new ScrWeapons(this);
-		currentState = GameState.BATTLE;
+		currentState = GameState.WEAPONS;
 		updateState();
 	}
 
 	@Override
 	public void render() {
-
 		super.render();
-
 	}
 }
 
