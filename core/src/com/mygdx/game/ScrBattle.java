@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,15 +22,12 @@ public class ScrBattle implements Screen {
     TbsMenu tbsMenu;
     TbMenu tbAttack, tbWeapons;
     SpriteBatch spriteBatch;
-    float fEnemyHealth, fHeroHealth, fMinus;
+    float fEnemyHealth, fHeroHealth, fMinus, fDamage;
     Stage stage;
 
     public ScrBattle(GamBattleScreen gamBattleScreen) {
         this.gamBattleScreen = gamBattleScreen;
-    }
 
-    public ScrBattle(){
-        //fMinus = 10;
     }
 
     @Override
@@ -56,7 +52,7 @@ public class ScrBattle implements Screen {
         tbAttack.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                fEnemyHealth = fEnemyHealth - 50;
+                fEnemyHealth = fEnemyHealth - fDamage;
                 System.out.println(fEnemyHealth);
                 if (fEnemyHealth == 0){
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;

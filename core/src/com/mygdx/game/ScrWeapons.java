@@ -4,35 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
  * Created by michelle on 4/21/2016.
  */
 public class ScrWeapons implements Screen {
 
+    ScrBattle scrBattle;
     GamBattleScreen gamBattleScreen;
     TbsMenu tbsMenu;
-    //float fMinus;
     String sChoose;
     TbMenu tbBeans, tbKnife, tbShoe, tbBread;
     Stage stage;
     SpriteBatch batch;
     BitmapFont font;
+    float fDamage;
 
     public ScrWeapons(GamBattleScreen gamBattleScreen) {
         this.gamBattleScreen = gamBattleScreen;
@@ -48,7 +39,6 @@ public class ScrWeapons implements Screen {
         tbShoe = new TbMenu("Shoe", tbsMenu);
         tbBread = new TbMenu("Bread", tbsMenu);
         tbBeans.setBounds(0, 0, 290, 100);
-       // tbBeans.setBackground("beans.png");
         tbKnife.setBounds(0, 200, 290, 100);
         tbShoe.setBounds(300, 0, 290, 100);
         tbBread.setBounds(300, 200, 290, 100);
@@ -64,15 +54,16 @@ public class ScrWeapons implements Screen {
         tbBeans.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                fDamage = damageBeans();
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return true;
             }
         });
-        boolean b = tbKnife.addListener(new InputListener() {
+        tbKnife.addListener(new InputListener() {
             //@Override
             public float touchDown(InputEvent event, float x, float y, int pointer, int button, float fMinus) {
-                fMinus = 30;
+                fDamage = damageKnife();
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return fMinus;
@@ -81,6 +72,7 @@ public class ScrWeapons implements Screen {
         tbShoe.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                fDamage = damageShoe();
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return true;
@@ -89,6 +81,7 @@ public class ScrWeapons implements Screen {
         tbBread.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                fDamage = damageBread();
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return true;
@@ -96,6 +89,26 @@ public class ScrWeapons implements Screen {
         });
         Gdx.input.setInputProcessor(stage);
 
+    }
+    public static float damageKnife() {
+        float fMinus;
+        fMinus = 50;
+        return fMinus;
+    }
+    public static float damageBeans() {
+        float fMinus;
+        fMinus = 10;
+        return fMinus;
+    }
+    public static float damageBread() {
+        float fMinus;
+        fMinus = 20;
+        return fMinus;
+    }
+    public static float damageShoe() {
+        float fMinus;
+        fMinus = 30;
+        return fMinus;
     }
 
     @Override
