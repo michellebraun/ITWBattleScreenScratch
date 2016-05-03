@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,10 +25,13 @@ public class ScrBattle implements Screen {
     SpriteBatch spriteBatch;
     float fEnemyHealth, fHeroHealth, fMinus, fDamage;
     Stage stage;
+    int nDamage;
 
     public ScrBattle(GamBattleScreen gamBattleScreen) {
         this.gamBattleScreen = gamBattleScreen;
-
+    }
+    public void damage (int fDamage){
+        nDamage = fDamage;
     }
 
     @Override
@@ -52,7 +56,7 @@ public class ScrBattle implements Screen {
         tbAttack.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                fEnemyHealth = fEnemyHealth - fDamage;
+                fEnemyHealth = fEnemyHealth - nDamage;
                 System.out.println(fEnemyHealth);
                 if (fEnemyHealth == 0){
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;
@@ -74,7 +78,6 @@ public class ScrBattle implements Screen {
         Gdx.input.setInputProcessor(stage);
     }
 
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
@@ -92,6 +95,10 @@ public class ScrBattle implements Screen {
         stage.draw();
     }
 
+    static Preferences prefs = Gdx.app.getPreferences("My_state");
+    public static void ContinuePutstate() {
+
+    }
     @Override
     public void resize(int width, int height) {
 

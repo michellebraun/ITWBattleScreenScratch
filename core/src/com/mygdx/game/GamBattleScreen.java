@@ -29,7 +29,7 @@ public class GamBattleScreen extends Game {
 	public void create() {
 		scrBattle = new ScrBattle(this);
 		scrWin = new ScrWin(this);
-		scrWeapons = new ScrWeapons(this);
+		scrWeapons = new ScrWeapons(this, scrBattle);
 		currentState = GameState.WEAPONS;
 		updateState();
 	}
