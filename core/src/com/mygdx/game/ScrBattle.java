@@ -19,11 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class ScrBattle implements Screen {
 
     GamBattleScreen gamBattleScreen;
-    Texture txEnemy, txHealth, txHealthBorder, txBackground, txMainC;
+    Texture txEnemy, txRedHealth, txHealthBorder, txBackground, txMainC, txGreenHealth, txYellowHealth, txWeapon;
     TbsMenu tbsMenu;
     TbMenu tbAttack, tbWeapons;
     SpriteBatch spriteBatch;
-    float fEnemyHealth, fHeroHealth, fMinus, fDamage;
+    float fEnemyHealth, fHeroHealth;
     Stage stage;
     int nDamage;
 
@@ -33,6 +33,9 @@ public class ScrBattle implements Screen {
     public void damage (int fDamage){
         nDamage = fDamage;
     }
+    public void weapon (Texture texture){
+        txWeapon = texture;
+    }
 
     @Override
     public void show() {
@@ -40,16 +43,19 @@ public class ScrBattle implements Screen {
         tbsMenu = new TbsMenu();
         tbAttack = new TbMenu("Attack", tbsMenu);
         tbWeapons = new TbMenu("Change Weapon", tbsMenu);
-        tbWeapons.setBounds(300, 0, 290, 100);
-        tbAttack.setBounds(0, 0 , 290, 100);
+        tbWeapons.setBounds(270, 0, 260, 100);
+        tbAttack.setBounds(0, 0 , 260, 100);
         stage.addActor(tbAttack);
         stage.addActor(tbWeapons);
 
         txBackground = new Texture(Gdx.files.internal("woods.jpg"));
         txMainC = new Texture(Gdx.files.internal("cinderella.png"));
         txHealthBorder = new Texture(Gdx.files.internal("healthborder.png"));
-        txHealth = new Texture(Gdx.files.internal("red.png"));
+        txRedHealth = new Texture(Gdx.files.internal("red.png"));
+        txGreenHealth =  new Texture(Gdx.files.internal("green.jpg"));
+        txYellowHealth =  new Texture(Gdx.files.internal("yellow.png"));
         txEnemy = new Texture(Gdx.files.internal("witch.png"));
+
         fEnemyHealth = 200;
         fHeroHealth = 200;
 
@@ -82,23 +88,39 @@ public class ScrBattle implements Screen {
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         Gdx.gl.glClearColor(1,1,1,1);
+
         stage.act();
         spriteBatch.begin();
         spriteBatch.draw(txBackground, 0, 0);
         spriteBatch.draw(txHealthBorder, 390, 380, 220, 30);
-        spriteBatch.draw(txHealth, 400, 390, fEnemyHealth, 15);
         spriteBatch.draw(txHealthBorder, 0, 380, 220, 30);
-        spriteBatch.draw(txHealth, 0, 390 , fHeroHealth, 15);
+
+        if (fEnemyHealth >=120){
+            spriteBatch.draw(txGreenHealth, 400, 390, fEnemyHealth, 15);
+        }
+        else if (fEnemyHealth >= 60 && fEnemyHealth <120){
+            spriteBatch.draw(txYellowHealth, 400, 390, fEnemyHealth, 15);
+        }
+        else {
+            spriteBatch.draw(txRedHealth, 400, 390, fEnemyHealth, 15);
+        }
+
+        if (fHeroHealth >=120){
+            spriteBatch.draw(txGreenHealth, 10, 390, fHeroHealth, 15);
+        }
+        else if (fHeroHealth >= 60 && fHeroHealth <120){
+            spriteBatch.draw(txYellowHealth, 10, 390, fHeroHealth, 15);
+        }
+        else {
+            spriteBatch.draw(txRedHealth, 10, 390, fHeroHealth, 15);
+        }
+        spriteBatch.draw(txWeapon, 550, 30, 70, 50);
         spriteBatch.draw(txEnemy, 400, 180, 200, 200);
         spriteBatch.draw(txMainC, 0, 170, 200, 200);
         spriteBatch.end();
         stage.draw();
     }
 
-    static Preferences prefs = Gdx.app.getPreferences("My_state");
-    public static void ContinuePutstate() {
-
-    }
     @Override
     public void resize(int width, int height) {
 

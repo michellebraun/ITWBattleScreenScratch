@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -23,7 +24,7 @@ public class ScrWeapons implements Screen {
     Stage stage;
     SpriteBatch batch;
     BitmapFont font;
-    float fDamage, fAh;
+    Texture txShoe, txBeans, txBread, txKnife;
 
     public ScrWeapons(GamBattleScreen gamBattleScreen, ScrBattle _scrBattle) {
         this.gamBattleScreen = gamBattleScreen;
@@ -48,6 +49,11 @@ public class ScrWeapons implements Screen {
         stage.addActor(tbBread);
         stage.addActor(tbShoe);
 
+        txBeans = new Texture(Gdx.files.internal("beans.png"));
+        txBread = new Texture(Gdx.files.internal("bread.png"));
+        txKnife = new Texture(Gdx.files.internal("knife.png"));
+        txShoe = new Texture(Gdx.files.internal("shoe.png"));
+
         font = new BitmapFont(Gdx.files.internal("test.fnt"));
         font.setColor(Color.GREEN);
         sChoose = "Choose a Weapon";
@@ -56,6 +62,7 @@ public class ScrWeapons implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 scrBattle.damage(10);
+                scrBattle.weapon(txBeans);
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return true;
@@ -65,6 +72,7 @@ public class ScrWeapons implements Screen {
             //@Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 scrBattle.damage(40);
+                scrBattle.weapon(txKnife);
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return true;
@@ -74,6 +82,7 @@ public class ScrWeapons implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 scrBattle.damage(30);
+                scrBattle.weapon(txShoe);
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return true;
@@ -83,6 +92,7 @@ public class ScrWeapons implements Screen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 scrBattle.damage(20);
+                scrBattle.weapon(txBread);
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
                 return true;
