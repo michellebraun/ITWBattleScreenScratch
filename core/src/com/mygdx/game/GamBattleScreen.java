@@ -5,10 +5,12 @@ import com.badlogic.gdx.Game;
 public class GamBattleScreen extends Game {
 	ScrBattle scrBattle;
 	ScrWin scrWin;
+	ScrLose scrLose;
 	ScrWeapons scrWeapons;
+	HealthBar healthBar;
 
 	public enum GameState {
-		BATTLE, WIN, WEAPONS
+		BATTLE, WIN, WEAPONS, LOSE
 	}
 
 	public GameState currentState;
@@ -19,17 +21,19 @@ public class GamBattleScreen extends Game {
 			setScreen(scrBattle);
 		}else if(currentState==GameState.WIN) {
 			setScreen(scrWin);
-		}
-		else if(currentState==GameState.WEAPONS) {
+		}else if(currentState==GameState.WEAPONS) {
 			setScreen(scrWeapons);
+		}else if(currentState==GameState.LOSE) {
+			setScreen(scrLose);
 		}
 	}
 
 	@Override
 	public void create() {
-		scrBattle = new ScrBattle(this);
+		scrBattle = new ScrBattle(this, healthBar);
 		scrWin = new ScrWin(this);
 		scrWeapons = new ScrWeapons(this, scrBattle);
+		scrLose = new ScrLose(this);
 		currentState = GameState.WEAPONS;
 		updateState();
 	}

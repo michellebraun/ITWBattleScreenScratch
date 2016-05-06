@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,26 +8,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Timer;
 
 /**
  * Created by michelle on 4/20/2016.
- *
- * Idea came from (Rectangle that shrinks for the health bar)
- * http://stackoverflow.com/questions/24356672/how-to-create-a-healthbar-in-libgdx
  */
 public class ScrBattle implements Screen {
 
     GamBattleScreen gamBattleScreen;
-    Texture txEnemy, txRedHealth, txHealthBorder, txBackground, txMainC, txGreenHealth, txYellowHealth, txWeapon;
+    Texture txEnemy, txHealthBorder, txBackground, txMainC,txHeroHealth, txEnemyHealth, txWeapon;
     TbsMenu tbsMenu;
+    HealthBar healthBar;
     TbMenu tbAttack, tbWeapons;
     SpriteBatch spriteBatch;
-    float fEnemyHealth, fHeroHealth;
+    float fEnemyHealth = 200, fHeroHealth = 200;
     Stage stage;
     int nDamage;
 
-    public ScrBattle(GamBattleScreen gamBattleScreen) {
+    public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar) {
         this.gamBattleScreen = gamBattleScreen;
+        healthBar = _healthBar;
     }
     public void damage (int fDamage){
         nDamage = fDamage;
@@ -51,26 +50,39 @@ public class ScrBattle implements Screen {
         txBackground = new Texture(Gdx.files.internal("woods.jpg"));
         txMainC = new Texture(Gdx.files.internal("cinderella.png"));
         txHealthBorder = new Texture(Gdx.files.internal("healthborder.png"));
-        txRedHealth = new Texture(Gdx.files.internal("red.png"));
-        txGreenHealth =  new Texture(Gdx.files.internal("green.jpg"));
-        txYellowHealth =  new Texture(Gdx.files.internal("yellow.png"));
         txEnemy = new Texture(Gdx.files.internal("witch.png"));
 
-        fEnemyHealth = 200;
-        fHeroHealth = 200;
-
-        tbAttack.addListener(new InputListener(){
+        tbAttack.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 fEnemyHealth = fEnemyHealth - nDamage;
-                System.out.println(fEnemyHealth);
-                if (fEnemyHealth == 0){
+                txEnemyHealth = healthBar.HealthColour(fEnemyHealth);
+                System.out.println("Enemy:"+fEnemyHealth);
+                if (fEnemyHealth <= 0) {
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;
                     gamBattleScreen.updateState();
+                } else {
+                    //Timer:
+                    //http://atsiitech.blogspot.ca/2013/09/adding-15-second-timer-to-your-games.html
+                    Timer.schedule(new Timer.Task() {
+                        @Override
+                        public void run() {
+                            fHeroHealth = fHeroHealth-20;
+                            txHeroHealth = healthBar.HealthColour(fHeroHealth);
+                        }
+                    }, 1);
+                    System.out.println("Hero:"+fHeroHealth);
+                    if (fHeroHealth == 0) {
+                        gamBattleScreen.currentState = GamBattleScreen.GameState.LOSE;
+                        gamBattleScreen.updateState();
+                    }
                 }
                 return true;
             }
         });
+        txEnemyHealth = healthBar.HealthColour(fEnemyHealth);
+        txHeroHealth = healthBar.HealthColour(fHeroHealth);
+
         tbWeapons.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -79,7 +91,6 @@ public class ScrBattle implements Screen {
                 return true;
             }
         });
-
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(stage);
     }
@@ -95,25 +106,8 @@ public class ScrBattle implements Screen {
         spriteBatch.draw(txHealthBorder, 390, 380, 220, 30);
         spriteBatch.draw(txHealthBorder, 0, 380, 220, 30);
 
-        if (fEnemyHealth >=120){
-            spriteBatch.draw(txGreenHealth, 400, 390, fEnemyHealth, 15);
-        }
-        else if (fEnemyHealth >= 60 && fEnemyHealth <120){
-            spriteBatch.draw(txYellowHealth, 400, 390, fEnemyHealth, 15);
-        }
-        else {
-            spriteBatch.draw(txRedHealth, 400, 390, fEnemyHealth, 15);
-        }
-
-        if (fHeroHealth >=120){
-            spriteBatch.draw(txGreenHealth, 10, 390, fHeroHealth, 15);
-        }
-        else if (fHeroHealth >= 60 && fHeroHealth <120){
-            spriteBatch.draw(txYellowHealth, 10, 390, fHeroHealth, 15);
-        }
-        else {
-            spriteBatch.draw(txRedHealth, 10, 390, fHeroHealth, 15);
-        }
+        spriteBatch.draw(txEnemyHealth,400, 390, fEnemyHealth, 15);
+        spriteBatch.draw(txHeroHealth, 10, 390, fHeroHealth, 15);
         spriteBatch.draw(txWeapon, 550, 30, 70, 50);
         spriteBatch.draw(txEnemy, 400, 180, 200, 200);
         spriteBatch.draw(txMainC, 0, 170, 200, 200);

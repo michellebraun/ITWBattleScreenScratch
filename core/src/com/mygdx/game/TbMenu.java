@@ -16,7 +16,6 @@ public class TbMenu extends TextButton{
         this.setSize(600, 200);
         this.addListener(new ClickListener() {
             public void clicked(InputEvent e, float x, float y) {
-                System.out.println(sText);
             }
         });
     }}
