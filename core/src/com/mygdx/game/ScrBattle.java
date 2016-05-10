@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Timer;
 public class ScrBattle implements Screen {
 
     GamBattleScreen gamBattleScreen;
-    Texture txEnemy, txHealthBorder, txBackground, txMainC,txHeroHealth, txEnemyHealth, txWeapon;
+    Texture txEnemy, txHealthBorder, txBackground, txHero,txHeroHealth, txEnemyHealth, txWeapon;
     TbsMenu tbsMenu;
     HealthBar healthBar;
     TbMenu tbAttack, tbWeapons;
@@ -48,7 +48,7 @@ public class ScrBattle implements Screen {
         stage.addActor(tbWeapons);
 
         txBackground = new Texture(Gdx.files.internal("woods.jpg"));
-        txMainC = new Texture(Gdx.files.internal("cinderella.png"));
+        txHero = new Texture(Gdx.files.internal("cinderella.png"));
         txHealthBorder = new Texture(Gdx.files.internal("healthborder.png"));
         txEnemy = new Texture(Gdx.files.internal("witch.png"));
 
@@ -57,8 +57,10 @@ public class ScrBattle implements Screen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 fEnemyHealth = fEnemyHealth - nDamage;
                 txEnemyHealth = healthBar.HealthColour(fEnemyHealth);
-                System.out.println("Enemy:"+fEnemyHealth);
+                System.out.println("Enemy: "+fEnemyHealth);
                 if (fEnemyHealth <= 0) {
+                    fEnemyHealth = 200;
+                    fHeroHealth = 200;
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;
                     gamBattleScreen.updateState();
                 } else {
@@ -67,12 +69,15 @@ public class ScrBattle implements Screen {
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
-                            fHeroHealth = fHeroHealth-20;
+                            int nDamage = (int )(Math.random() * 50 + 10);
+                            fHeroHealth = fHeroHealth-nDamage;
                             txHeroHealth = healthBar.HealthColour(fHeroHealth);
+                            System.out.println("Hero: "+fHeroHealth);
                         }
                     }, 1);
-                    System.out.println("Hero:"+fHeroHealth);
-                    if (fHeroHealth == 0) {
+                    if (fHeroHealth <= 0) {
+                        fEnemyHealth = 200;
+                        fHeroHealth = 200;
                         gamBattleScreen.currentState = GamBattleScreen.GameState.LOSE;
                         gamBattleScreen.updateState();
                     }
@@ -110,7 +115,7 @@ public class ScrBattle implements Screen {
         spriteBatch.draw(txHeroHealth, 10, 390, fHeroHealth, 15);
         spriteBatch.draw(txWeapon, 550, 30, 70, 50);
         spriteBatch.draw(txEnemy, 400, 180, 200, 200);
-        spriteBatch.draw(txMainC, 0, 170, 200, 200);
+        spriteBatch.draw(txHero, 0, 170, 200, 200);
         spriteBatch.end();
         stage.draw();
     }
