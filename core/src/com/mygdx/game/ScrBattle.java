@@ -2,8 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -18,12 +20,17 @@ public class ScrBattle implements Screen {
     GamBattleScreen gamBattleScreen;
     Texture txEnemy, txHealthBorder, txBackground, txHero,txHeroHealth, txEnemyHealth, txWeapon;
     TbsMenu tbsMenu;
+    TbsDialog tbsDialog;
+    TbDialog tbDialog;
     HealthBar healthBar;
     TbMenu tbAttack, tbWeapons;
     SpriteBatch spriteBatch;
     float fEnemyHealth = 200, fHeroHealth = 200;
     Stage stage;
     int nDamage;
+    BitmapFont font;
+    BitmapFont textFont,textFontSmall,textFontSmallest;
+    String sEnemy, sHero;
 
     public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar) {
         this.gamBattleScreen = gamBattleScreen;
@@ -36,14 +43,20 @@ public class ScrBattle implements Screen {
         txWeapon = texture;
     }
 
+
     @Override
     public void show() {
         stage = new Stage();
         tbsMenu = new TbsMenu();
+        tbsDialog = new TbsDialog();
         tbAttack = new TbMenu("Attack", tbsMenu);
         tbWeapons = new TbMenu("Change Weapon", tbsMenu);
         tbWeapons.setBounds(270, 0, 260, 100);
         tbAttack.setBounds(0, 0 , 260, 100);
+        font = new BitmapFont(Gdx.files.internal("test.fnt"));
+        font = new BitmapFont(Gdx.files.internal("test.fnt"));
+        font.setColor(Color.WHITE);
+
         stage.addActor(tbAttack);
         stage.addActor(tbWeapons);
 
@@ -58,21 +71,27 @@ public class ScrBattle implements Screen {
                 fEnemyHealth = fEnemyHealth - nDamage;
                 txEnemyHealth = healthBar.HealthColour(fEnemyHealth);
                 System.out.println("Enemy: "+fEnemyHealth);
+                sEnemy = "Witch's Health: "+ fEnemyHealth;
                 if (fEnemyHealth <= 0) {
                     fEnemyHealth = 200;
                     fHeroHealth = 200;
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;
                     gamBattleScreen.updateState();
                 } else {
-                    //Timer:
+                    //tbDialog = new TbDialog("Your Health: " +fHeroHealth+" Enemy's Health: " +fEnemyHealth, tbsDialog);
+                    //stage.addActor(tbDialog);
+
+                  //Timer:
                     //http://atsiitech.blogspot.ca/2013/09/adding-15-second-timer-to-your-games.html
                     Timer.schedule(new Timer.Task() {
                         @Override
                         public void run() {
+                           // tbDialog.remove();
                             int nDamage = (int )(Math.random() * 50 + 10);
                             fHeroHealth = fHeroHealth-nDamage;
                             txHeroHealth = healthBar.HealthColour(fHeroHealth);
                             System.out.println("Hero: "+fHeroHealth);
+                            sHero = "Your Health: "+fHeroHealth;
                         }
                     }, 1);
                     if (fHeroHealth <= 0) {
@@ -96,6 +115,8 @@ public class ScrBattle implements Screen {
                 return true;
             }
         });
+        sHero = "Your Health: "+fHeroHealth;
+        sEnemy = "Witch's Health: "+ fEnemyHealth;
         spriteBatch = new SpriteBatch();
         Gdx.input.setInputProcessor(stage);
     }
@@ -110,7 +131,8 @@ public class ScrBattle implements Screen {
         spriteBatch.draw(txBackground, 0, 0);
         spriteBatch.draw(txHealthBorder, 390, 380, 220, 30);
         spriteBatch.draw(txHealthBorder, 0, 380, 220, 30);
-
+        font.draw(spriteBatch, sHero, 0, 450);
+        font.draw(spriteBatch, sEnemy, 300, 450);
         spriteBatch.draw(txEnemyHealth,400, 390, fEnemyHealth, 15);
         spriteBatch.draw(txHeroHealth, 10, 390, fHeroHealth, 15);
         spriteBatch.draw(txWeapon, 550, 30, 70, 50);
