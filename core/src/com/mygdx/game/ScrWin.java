@@ -19,16 +19,18 @@ public class ScrWin implements Screen{
     SpriteBatch batch;
     String sWin;
     BitmapFont font;
+    Fonts fonts;
 
-    public ScrWin(GamBattleScreen gamBattleScreen) {
+    public ScrWin(GamBattleScreen gamBattleScreen, Fonts _fonts) {
         this.gamBattleScreen = gamBattleScreen;
+        fonts = _fonts;
     }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
         stage = new Stage();
-        tbsMenu = new TbsMenu();
+        tbsMenu = new TbsMenu(fonts);
         font = new BitmapFont(Gdx.files.internal("test.fnt"));
         font.setColor(Color.GREEN);
         tbContinue = new TbMenu("Continue", tbsMenu);

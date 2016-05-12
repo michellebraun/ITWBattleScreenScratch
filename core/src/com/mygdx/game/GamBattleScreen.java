@@ -8,6 +8,9 @@ public class GamBattleScreen extends Game {
 	ScrLose scrLose;
 	ScrWeapons scrWeapons;
 	HealthBar healthBar;
+	Fonts fonts;
+	TbsMenu tbsMenu;
+	TbsDialog tbsDialog;
 
 	public enum GameState {
 		BATTLE, WIN, WEAPONS, LOSE
@@ -30,10 +33,12 @@ public class GamBattleScreen extends Game {
 
 	@Override
 	public void create() {
-		scrBattle = new ScrBattle(this, healthBar);
-		scrWin = new ScrWin(this);
-		scrWeapons = new ScrWeapons(this, scrBattle);
-		scrLose = new ScrLose(this);
+		scrBattle = new ScrBattle(this, healthBar, fonts);
+		scrWin = new ScrWin(this, fonts);
+		scrWeapons = new ScrWeapons(this, scrBattle, fonts);
+		scrLose = new ScrLose(this, fonts);
+		tbsDialog = new TbsDialog(fonts);
+		tbsMenu = new TbsMenu(fonts);
 		currentState = GameState.WEAPONS;
 		updateState();
 	}

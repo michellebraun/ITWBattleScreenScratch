@@ -18,6 +18,7 @@ public class ScrWeapons implements Screen {
 
     ScrBattle scrBattle;
     GamBattleScreen gamBattleScreen;
+    Fonts fonts;
     TbsMenu tbsMenu;
     String sChoose;
     TbMenu tbBeans, tbKnife, tbShoe, tbBread;
@@ -26,7 +27,7 @@ public class ScrWeapons implements Screen {
     BitmapFont font;
     Texture txShoe, txBeans, txBread, txKnife;
 
-    public ScrWeapons(GamBattleScreen gamBattleScreen, ScrBattle _scrBattle) {
+    public ScrWeapons(GamBattleScreen gamBattleScreen, ScrBattle _scrBattle, Fonts fonts) {
         this.gamBattleScreen = gamBattleScreen;
         scrBattle = _scrBattle;
 
@@ -35,7 +36,7 @@ public class ScrWeapons implements Screen {
     public void show() {
         batch = new SpriteBatch();
         stage = new Stage();
-        tbsMenu = new TbsMenu();
+        tbsMenu = new TbsMenu(fonts);
         tbBeans = new TbMenu("Beans", tbsMenu);
         tbKnife = new TbMenu("Knife", tbsMenu);
         tbShoe = new TbMenu("Shoe", tbsMenu);

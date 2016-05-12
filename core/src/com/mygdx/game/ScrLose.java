@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * Created by michelle on 5/6/2016.
  */
 public class ScrLose implements Screen {
+
     GamBattleScreen gamBattleScreen;
+    Fonts fonts;
     TbsMenu tbsMenu;
     TbMenu tbContinue;
     Stage stage;
@@ -20,7 +22,7 @@ public class ScrLose implements Screen {
     String sLose;
     BitmapFont font;
 
-    public ScrLose (GamBattleScreen gamBattleScreen) {
+    public ScrLose(GamBattleScreen gamBattleScreen, Fonts fonts) {
         this.gamBattleScreen = gamBattleScreen;
     }
 
@@ -28,7 +30,7 @@ public class ScrLose implements Screen {
     public void show() {
         batch = new SpriteBatch();
         stage = new Stage();
-        tbsMenu = new TbsMenu();
+        tbsMenu = new TbsMenu(fonts);
         font = new BitmapFont(Gdx.files.internal("test.fnt"));
         font.setColor(Color.GREEN);
         tbContinue = new TbMenu("Try Again", tbsMenu);

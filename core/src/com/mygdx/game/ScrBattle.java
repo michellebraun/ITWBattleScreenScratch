@@ -22,6 +22,7 @@ public class ScrBattle implements Screen {
     TbsMenu tbsMenu;
     TbsDialog tbsDialog;
     TbDialog tbDialog;
+    Fonts fonts;
     HealthBar healthBar;
     TbMenu tbAttack, tbWeapons;
     SpriteBatch spriteBatch;
@@ -32,7 +33,7 @@ public class ScrBattle implements Screen {
     BitmapFont textFont,textFontSmall,textFontSmallest;
     String sEnemy, sHero;
 
-    public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar) {
+    public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar, Fonts fonts) {
         this.gamBattleScreen = gamBattleScreen;
         healthBar = _healthBar;
     }
@@ -47,8 +48,8 @@ public class ScrBattle implements Screen {
     @Override
     public void show() {
         stage = new Stage();
-        tbsMenu = new TbsMenu();
-        tbsDialog = new TbsDialog();
+        tbsMenu = new TbsMenu(fonts);
+        tbsDialog = new TbsDialog(fonts);
         tbAttack = new TbMenu("Attack", tbsMenu);
         tbWeapons = new TbMenu("Change Weapon", tbsMenu);
         tbWeapons.setBounds(270, 0, 260, 100);
