@@ -30,12 +30,12 @@ public class ScrBattle implements Screen {
     Stage stage;
     int nDamage;
     BitmapFont font;
-    BitmapFont textFont,textFontSmall,textFontSmallest;
     String sEnemy, sHero;
 
-    public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar, Fonts fonts) {
+    public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar, Fonts _fonts) {
         this.gamBattleScreen = gamBattleScreen;
         healthBar = _healthBar;
+        fonts = _fonts;
     }
     public void damage (int fDamage){
         nDamage = fDamage;
@@ -54,12 +54,9 @@ public class ScrBattle implements Screen {
         tbWeapons = new TbMenu("Change Weapon", tbsMenu);
         tbWeapons.setBounds(270, 0, 260, 100);
         tbAttack.setBounds(0, 0 , 260, 100);
-        font = new BitmapFont(Gdx.files.internal("test.fnt"));
-        font = new BitmapFont(Gdx.files.internal("test.fnt"));
-        font.setColor(Color.WHITE);
-
         stage.addActor(tbAttack);
         stage.addActor(tbWeapons);
+        font = fonts.makeFont();
 
         txBackground = new Texture(Gdx.files.internal("woods.jpg"));
         txHero = new Texture(Gdx.files.internal("cinderella.png"));

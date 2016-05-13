@@ -31,8 +31,7 @@ public class ScrWin implements Screen{
         batch = new SpriteBatch();
         stage = new Stage();
         tbsMenu = new TbsMenu(fonts);
-        font = new BitmapFont(Gdx.files.internal("test.fnt"));
-        font.setColor(Color.GREEN);
+        font = fonts.makeFont();
         tbContinue = new TbMenu("Continue", tbsMenu);
         tbContinue.setY(0);
         stage.addActor(tbContinue);

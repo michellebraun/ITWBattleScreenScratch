@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -22,8 +23,9 @@ public class ScrLose implements Screen {
     String sLose;
     BitmapFont font;
 
-    public ScrLose(GamBattleScreen gamBattleScreen, Fonts fonts) {
+    public ScrLose(GamBattleScreen gamBattleScreen, Fonts _fonts) {
         this.gamBattleScreen = gamBattleScreen;
+        fonts = _fonts;
     }
 
     @Override
@@ -31,13 +33,12 @@ public class ScrLose implements Screen {
         batch = new SpriteBatch();
         stage = new Stage();
         tbsMenu = new TbsMenu(fonts);
-        font = new BitmapFont(Gdx.files.internal("test.fnt"));
-        font.setColor(Color.GREEN);
         tbContinue = new TbMenu("Try Again", tbsMenu);
         tbContinue.setY(0);
         stage.addActor(tbContinue);
         sLose = "You Lose...";
         Gdx.input.setInputProcessor(stage);
+        font = fonts.makeFont();
     }
 
     @Override

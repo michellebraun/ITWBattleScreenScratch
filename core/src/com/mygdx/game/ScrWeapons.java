@@ -27,9 +27,10 @@ public class ScrWeapons implements Screen {
     BitmapFont font;
     Texture txShoe, txBeans, txBread, txKnife;
 
-    public ScrWeapons(GamBattleScreen gamBattleScreen, ScrBattle _scrBattle, Fonts fonts) {
+    public ScrWeapons(GamBattleScreen gamBattleScreen, ScrBattle _scrBattle, Fonts _fonts) {
         this.gamBattleScreen = gamBattleScreen;
         scrBattle = _scrBattle;
+        fonts = _fonts;
 
     }
     @Override
@@ -54,9 +55,7 @@ public class ScrWeapons implements Screen {
         txBread = new Texture(Gdx.files.internal("bread.png"));
         txKnife = new Texture(Gdx.files.internal("knife.png"));
         txShoe = new Texture(Gdx.files.internal("shoe.png"));
-
-        font = new BitmapFont(Gdx.files.internal("test.fnt"));
-        font.setColor(Color.GREEN);
+        font = fonts.makeFont();
         sChoose = "Choose a Weapon";
 
         tbBeans.addListener(new InputListener(){

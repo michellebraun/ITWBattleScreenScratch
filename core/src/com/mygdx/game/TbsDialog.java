@@ -13,14 +13,16 @@ public class TbsDialog extends TextButton.TextButtonStyle{
     Skin skin = new Skin();
     TextureAtlas taAtlas;
     Fonts fonts;
+    BitmapFont dialogFont;
 
     public TbsDialog(Fonts _fonts) {
-        BitmapFont font = new BitmapFont();
-        skin.add("default", font);
+        fonts = _fonts;
+        dialogFont = fonts.makeFont();
+        skin.add("default", dialogFont);
         taAtlas = new TextureAtlas(Gdx.files.internal("DialogBox.pack"));
         skin.addRegions(taAtlas);
         this.up = skin.getDrawable("button");
         this.down = skin.getDrawable("buttonclicked");
-        this.font = skin.getFont("default");
+        this.font = dialogFont;
     }
 }
