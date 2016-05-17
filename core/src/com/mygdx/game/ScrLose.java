@@ -38,7 +38,7 @@ public class ScrLose implements Screen {
         stage.addActor(tbContinue);
         sLose = "You Lose...";
         Gdx.input.setInputProcessor(stage);
-        font = fonts.makeFont();
+        font = fonts.makeFont(1);
     }
 
     @Override

@@ -14,14 +14,30 @@ import javafx.scene.text.Font;
  */
 public class Fonts extends ApplicationAdapter {
 
-    public static BitmapFont makeFont() {
+    public static BitmapFont makeFont(int nChoose) {
         FileHandle fontFile = Gdx.files.internal("Woods.ttf");
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 25;
         parameter.color = Color.BLACK;
-        BitmapFont textFont = generator.generateFont(parameter);
-        generator.dispose();
-        return textFont;
+        if (nChoose == 2) {
+            parameter.size = 18;
+            parameter.borderColor = Color.WHITE;
+            parameter.borderWidth = 3;
+            BitmapFont textFont = generator.generateFont(parameter);
+            generator.dispose();
+            return textFont;
+        }
+        else if (nChoose == 1){
+            parameter.size = 30;
+            BitmapFont textFont = generator.generateFont(parameter);
+            generator.dispose();
+            return textFont;
+        }
+        else {
+            parameter.size = 18;
+            BitmapFont textFont = generator.generateFont(parameter);
+            generator.dispose();
+            return textFont;
+        }
     }
 }

@@ -31,7 +31,7 @@ public class ScrWin implements Screen{
         batch = new SpriteBatch();
         stage = new Stage();
         tbsMenu = new TbsMenu(fonts);
-        font = fonts.makeFont();
+        font = fonts.makeFont(1);
         tbContinue = new TbMenu("Continue", tbsMenu);
         tbContinue.setY(0);
         stage.addActor(tbContinue);

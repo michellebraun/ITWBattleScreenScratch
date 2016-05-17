@@ -24,7 +24,7 @@ public class ScrWeapons implements Screen {
     TbMenu tbBeans, tbKnife, tbShoe, tbBread;
     Stage stage;
     SpriteBatch batch;
-    BitmapFont font;
+    BitmapFont buttonFont, titleFont;
     Texture txShoe, txBeans, txBread, txKnife;
 
     public ScrWeapons(GamBattleScreen gamBattleScreen, ScrBattle _scrBattle, Fonts _fonts) {
@@ -55,7 +55,7 @@ public class ScrWeapons implements Screen {
         txBread = new Texture(Gdx.files.internal("bread.png"));
         txKnife = new Texture(Gdx.files.internal("knife.png"));
         txShoe = new Texture(Gdx.files.internal("shoe.png"));
-        font = fonts.makeFont();
+        titleFont = fonts.makeFont(1);
         sChoose = "Choose a Weapon";
 
         tbBeans.addListener(new InputListener(){
@@ -107,7 +107,7 @@ public class ScrWeapons implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         batch.begin();
         stage.act();
-        font.draw(batch, sChoose, 190, 380);
+        titleFont.draw(batch, sChoose, 160, 380);
         batch.end();
         stage.draw();
     }

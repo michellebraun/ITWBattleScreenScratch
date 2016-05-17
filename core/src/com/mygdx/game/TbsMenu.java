@@ -23,7 +23,7 @@ public class TbsMenu extends TextButton.TextButtonStyle{
     public TbsMenu(Fonts _fonts) {
         fonts = _fonts;
         skin = new Skin();
-        buttonFont = fonts.makeFont();
+        buttonFont = fonts.makeFont(0);
         skin.add("default", buttonFont);
         taAtlas = new TextureAtlas(Gdx.files.internal("Button.pack"));
         skin.addRegions(taAtlas);
