@@ -13,19 +13,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 public class TbsDialog extends TextButton.TextButtonStyle{
     Skin skin = new Skin();
     TextureAtlas taAtlas;
-    Texture txDialog;
     Fonts fonts;
     BitmapFont dialogFont;
 
     public TbsDialog(Fonts _fonts) {
         fonts = _fonts;
-        dialogFont = fonts.makeFont(0);
+        dialogFont = fonts.makeFont(3);
         skin.add("default", dialogFont);
-        //txDialog = new Texture(Gdx.files.internal("dialog.jpg"));
-        taAtlas = new TextureAtlas(Gdx.files.internal("Dialog.jpg"));
+        taAtlas = new TextureAtlas(Gdx.files.internal("Diaalog.pack"));
         skin.addRegions(taAtlas);
         this.up = skin.getDrawable("button");
-        this.down = skin.getDrawable("buttonclicked");
+        //this.down = skin.getDrawable("buttonclicked");
         this.font = dialogFont;
     }
 }

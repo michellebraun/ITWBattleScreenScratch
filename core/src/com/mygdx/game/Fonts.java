@@ -18,6 +18,9 @@ public class Fonts extends ApplicationAdapter {
         FileHandle fontFile = Gdx.files.internal("Woods.ttf");
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FileHandle dialogFontFile = Gdx.files.internal("DialogFont.ttf");
+        FreeTypeFontGenerator generator1 = new FreeTypeFontGenerator(dialogFontFile);
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.color = Color.BLACK;
         if (nChoose == 2) {
             parameter.size = 18;
@@ -31,6 +34,13 @@ public class Fonts extends ApplicationAdapter {
             parameter.size = 30;
             BitmapFont textFont = generator.generateFont(parameter);
             generator.dispose();
+            return textFont;
+        }
+        else if (nChoose == 3){
+            parameter1.color = Color.WHITE;
+            parameter1.size = 35;
+            BitmapFont textFont = generator1.generateFont(parameter1);
+            generator1.dispose();
             return textFont;
         }
         else {

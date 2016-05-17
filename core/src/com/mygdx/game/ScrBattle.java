@@ -28,9 +28,8 @@ public class ScrBattle implements Screen {
     HealthBar healthBar;
     TbMenu tbAttack, tbWeapons;
     SpriteBatch spriteBatch;
-    int nEnemyHealth = 200, nHeroHealth = 200, nDamage, i = 0;
+    int nEnemyHealth = 200, nHeroHealth = 200, nDamage, i;
     Stage stage;
-    float fBob = 100;
     BitmapFont font;
     String sEnemy, sHero, sLine, sDialog;
 
@@ -71,13 +70,12 @@ public class ScrBattle implements Screen {
                 txEnemyHealth = healthBar.HealthColour(nEnemyHealth);
                 System.out.println("Enemy: "+nEnemyHealth);
                 sEnemy = "Witch's Health: "+ nEnemyHealth;
-
+                i = (int )(Math.random() * 8 +0);
                 sDialog = "Dialog"+i;
                 sLine = prefCoords.getString(sDialog);
                 tbDialog = new TbDialog(sLine, tbsDialog);
-                tbDialog.setOriginY(100);
+                tbDialog.setBounds(0, 0, 700, 300);
                 stage.addActor(tbDialog);
-                System.out.println(sLine);
 
                 if (nEnemyHealth <= 0) {
                     nEnemyHealth = 200;
@@ -85,9 +83,6 @@ public class ScrBattle implements Screen {
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;
                     gamBattleScreen.updateState();
                 } else {
-                    //tbDialog = new TbDialog("Your Health: " +fHeroHealth+" Enemy's Health: " +fEnemyHealth, tbsDialog);
-                    //stage.addActor(tbDialog);
-
                   //Timer:
                     //http://atsiitech.blogspot.ca/2013/09/adding-15-second-timer-to-your-games.html
                     Timer.schedule(new Timer.Task() {
@@ -106,9 +101,8 @@ public class ScrBattle implements Screen {
                                 gamBattleScreen.updateState();
                             }
                         }
-                    }, 1);
+                    }, 2);
                 }
-                i++;
                 return true;
             }
         });

@@ -1,0 +1,12 @@
+
+Diaalog.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+button
+  rotate: false
+  xy: 1, 1
+  size: 300, 169
+  orig: 300, 169
+  offset: 0, 0
+  index: -1
