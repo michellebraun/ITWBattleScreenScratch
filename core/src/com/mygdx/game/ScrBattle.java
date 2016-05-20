@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Timer;
 public class ScrBattle implements Screen {
 
     GamBattleScreen gamBattleScreen;
-    Preferences prefCoords;
+    Preferences prefDialog;
     Texture txEnemy, txHealthBorder, txBackground, txHero,txHeroHealth, txEnemyHealth, txWeapon;
     TbsMenu tbsMenu;
     TbsDialog tbsDialog;
@@ -61,7 +61,7 @@ public class ScrBattle implements Screen {
         txHero = new Texture(Gdx.files.internal("cinderella.png"));
         txHealthBorder = new Texture(Gdx.files.internal("healthborder.png"));
         txEnemy = new Texture(Gdx.files.internal("witch.png"));
-        prefCoords = Gdx.app.getPreferences("Coordinates");
+        prefDialog = Gdx.app.getPreferences("Dialog"); //Ashleigh's save scratch
 
         tbAttack.addListener(new InputListener() {
             @Override
@@ -70,12 +70,11 @@ public class ScrBattle implements Screen {
                 txEnemyHealth = healthBar.HealthColour(nEnemyHealth);
                 System.out.println("Enemy: "+nEnemyHealth);
                 sEnemy = "Witch's Health: "+ nEnemyHealth;
-                i = (int )(Math.random() * 8 +0);
+                i = (int)(Math.random() * 8 +0);
                 sDialog = "Dialog"+i;
                 //FileHandle file = Gdx.files.internal("DialogText.txt");
-                //file.readString();
-                //sLine = new String ((Gdx.files.internal("DialogText.txt")));
-                sLine = prefCoords.getString(sDialog);
+                //sLine = file.readString(sDialog);
+                sLine = prefDialog.getString(sDialog);
                 tbDialog = new TbDialog(sLine, tbsDialog);
                 tbDialog.setBounds(0, 0, 700, 300);
                 stage.addActor(tbDialog);
@@ -145,7 +144,7 @@ public class ScrBattle implements Screen {
         spriteBatch.draw(txHero, 0, 170, 200, 200);
         spriteBatch.end();
         stage.draw();
-        prefCoords.flush();
+        prefDialog.flush();
     }
 
     @Override
