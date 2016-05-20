@@ -74,7 +74,7 @@ public class ScrBattle implements Screen {
                 sDialog = "Dialog"+i;
                 //FileHandle file = Gdx.files.internal("DialogText.txt");
                 //file.readString();
-                //sLine = new String (String.valueOf(Gdx.files.internal("DialogText.txt")));
+                //sLine = new String ((Gdx.files.internal("DialogText.txt")));
                 sLine = prefCoords.getString(sDialog);
                 tbDialog = new TbDialog(sLine, tbsDialog);
                 tbDialog.setBounds(0, 0, 700, 300);
