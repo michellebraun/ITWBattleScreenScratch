@@ -3,7 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -72,6 +72,9 @@ public class ScrBattle implements Screen {
                 sEnemy = "Witch's Health: "+ nEnemyHealth;
                 i = (int )(Math.random() * 8 +0);
                 sDialog = "Dialog"+i;
+                //FileHandle file = Gdx.files.internal("DialogText.txt");
+                //file.readString();
+                //sLine = new String (String.valueOf(Gdx.files.internal("DialogText.txt")));
                 sLine = prefCoords.getString(sDialog);
                 tbDialog = new TbDialog(sLine, tbsDialog);
                 tbDialog.setBounds(0, 0, 700, 300);
