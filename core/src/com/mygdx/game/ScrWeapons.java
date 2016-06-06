@@ -70,7 +70,7 @@ public class ScrWeapons implements Screen {
         tbKnife.addListener(new InputListener() {
             //@Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                scrBattle.damage(40);
+                scrBattle.damage(25);
                 scrBattle.weapon(txKnife);
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
@@ -80,7 +80,7 @@ public class ScrWeapons implements Screen {
         tbShoe.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                scrBattle.damage(30);
+                scrBattle.damage(20);
                 scrBattle.weapon(txShoe);
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();
@@ -90,7 +90,7 @@ public class ScrWeapons implements Screen {
         tbBread.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                scrBattle.damage(20);
+                scrBattle.damage(15);
                 scrBattle.weapon(txBread);
                 gamBattleScreen.currentState = GamBattleScreen.GameState.BATTLE;
                 gamBattleScreen.updateState();

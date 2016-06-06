@@ -1,9 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,14 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Timer;
+import java.util.Scanner;
 
 /**
+ * https://github.com/libgdx/libgdx/wiki/File-handling
+ * http://badlogicgames.com/forum/viewtopic.php?f=11&t=2913
  * Created by michelle on 4/20/2016.
  */
 public class ScrBattle implements Screen {
 
     GamBattleScreen gamBattleScreen;
-    Preferences prefDialog;
     Texture txEnemy, txHealthBorder, txBackground, txHero,txHeroHealth, txEnemyHealth, txWeapon;
     TbsMenu tbsMenu;
     TbsDialog tbsDialog;
@@ -31,9 +31,10 @@ public class ScrBattle implements Screen {
     int nEnemyHealth = 200, nHeroHealth = 200, nDamage, i;
     Stage stage;
     BitmapFont font;
-    String sEnemy, sHero, sLine, sDialog;
+    String sEnemy, sHero, sFile;
+    String arsDialog [] = new String[9];
 
-    public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar, Fonts _fonts) {
+    public ScrBattle(GamBattleScreen gamBattleScreen, HealthBar _healthBar, Fonts _fonts, Dialog _dialog) {
         this.gamBattleScreen = gamBattleScreen;
         healthBar = _healthBar;
         fonts = _fonts;
@@ -43,6 +44,9 @@ public class ScrBattle implements Screen {
     }
     public void weapon (Texture texture){
         txWeapon = texture;
+    }
+    public void dialog (String string){
+        sFile = string;
     }
 
     @Override
@@ -61,7 +65,6 @@ public class ScrBattle implements Screen {
         txHero = new Texture(Gdx.files.internal("cinderella.png"));
         txHealthBorder = new Texture(Gdx.files.internal("healthborder.png"));
         txEnemy = new Texture(Gdx.files.internal("witch.png"));
-        prefDialog = Gdx.app.getPreferences("Dialog"); //Ashleigh's save scratch
 
         tbAttack.addListener(new InputListener() {
             @Override
@@ -71,12 +74,13 @@ public class ScrBattle implements Screen {
                 System.out.println("Enemy: "+nEnemyHealth);
                 sEnemy = "Witch's Health: "+ nEnemyHealth;
                 i = (int)(Math.random() * 8 +0);
-                sDialog = "Dialog"+i;
-                //FileHandle file = Gdx.files.internal("DialogText.txt");
-                //sLine = file.readString(sDialog);
-                sLine = prefDialog.getString(sDialog);
-                tbDialog = new TbDialog(sLine, tbsDialog);
-                tbDialog.setBounds(0, 0, 700, 300);
+
+                Scanner sParse = new Scanner(sFile);
+                for (int k= 0; sParse.hasNext(); k++) {
+                    arsDialog[k] = sParse.nextLine();
+                }
+                tbDialog = new TbDialog(arsDialog[i], tbsDialog);
+                tbDialog.setBounds(-10, -10, 660, 200);
                 stage.addActor(tbDialog);
 
                 if (nEnemyHealth <= 0) {
@@ -84,6 +88,7 @@ public class ScrBattle implements Screen {
                     nHeroHealth = 200;
                     gamBattleScreen.currentState = GamBattleScreen.GameState.WIN;
                     gamBattleScreen.updateState();
+
                 } else {
                   //Timer:
                     //http://atsiitech.blogspot.ca/2013/09/adding-15-second-timer-to-your-games.html
@@ -91,7 +96,7 @@ public class ScrBattle implements Screen {
                         @Override
                         public void run() {
                             tbDialog.remove();
-                            int nDamage = (int )(Math.random() * 50 + 10);
+                            int nDamage = (int )(Math.random() * 25 + 10);
                             nHeroHealth = nHeroHealth-nDamage;
                             txHeroHealth = healthBar.HealthColour(nHeroHealth);
                             System.out.println("Hero: "+nHeroHealth);
@@ -103,7 +108,7 @@ public class ScrBattle implements Screen {
                                 gamBattleScreen.updateState();
                             }
                         }
-                    }, 2);
+                    }, (float) 1.4);
                 }
                 return true;
             }
@@ -144,7 +149,6 @@ public class ScrBattle implements Screen {
         spriteBatch.draw(txHero, 0, 170, 200, 200);
         spriteBatch.end();
         stage.draw();
-        prefDialog.flush();
     }
 
     @Override

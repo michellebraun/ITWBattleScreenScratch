@@ -36,7 +36,7 @@ public class Fonts extends ApplicationAdapter {
         }
         else if (nChoose == 3){
             parameter1.color = Color.WHITE;
-            parameter1.size = 35;
+            parameter1.size = 29;
             BitmapFont textFont = generator1.generateFont(parameter1);
             generator1.dispose();
             return textFont;

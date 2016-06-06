@@ -11,6 +11,7 @@ public class GamBattleScreen extends Game {
 	Fonts fonts;
 	TbsMenu tbsMenu;
 	TbsDialog tbsDialog;
+	Dialog dialog;
 
 	public enum GameState {
 		BATTLE, WIN, WEAPONS, LOSE
@@ -33,12 +34,13 @@ public class GamBattleScreen extends Game {
 
 	@Override
 	public void create() {
-		scrBattle = new ScrBattle(this, healthBar, fonts);
+		scrBattle = new ScrBattle(this, healthBar, fonts, dialog);
 		scrWin = new ScrWin(this, fonts);
 		scrWeapons = new ScrWeapons(this, scrBattle, fonts);
 		scrLose = new ScrLose(this, fonts);
 		tbsDialog = new TbsDialog(fonts);
 		tbsMenu = new TbsMenu(fonts);
+		dialog = new Dialog(scrBattle);
 		currentState = GameState.WEAPONS;
 		updateState();
 	}

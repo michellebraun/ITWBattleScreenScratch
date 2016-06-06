@@ -19,10 +19,9 @@ public class TbsDialog extends TextButton.TextButtonStyle{
         fonts = _fonts;
         dialogFont = fonts.makeFont(3);
         skin.add("default", dialogFont);
-        taAtlas = new TextureAtlas(Gdx.files.internal("Diaalog.pack"));
+        taAtlas = new TextureAtlas(Gdx.files.internal("FancyBox.pack"));
         skin.addRegions(taAtlas);
-        this.up = skin.getDrawable("button");
-        //this.down = skin.getDrawable("buttonclicked");
+        this.up = skin.getDrawable("FancyText");
         this.font = dialogFont;
     }
 }
